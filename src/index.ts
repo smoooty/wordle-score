@@ -4,18 +4,12 @@ const squares: [green: string, white: string, yellow: string] = [
   "🟨",
 ];
 
-// navigator.clipboard.writeText(document.getElementById('score').textContent).then(() => {
-// 	console.log('yes')
-//   }, () => {
-// 	  console.log('no')
-//   });
-
 const letterCount = 5;
 
 function getRandomIntInclusive(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
 function createScore() {
@@ -23,10 +17,12 @@ function createScore() {
   const rows = Array.from(Array(amount));
 
   let result = "";
-  for (let index = 0; index < rows.length; index++) {
-    let value;
 
-    if (index + 1 === rows.length) {
+  for (let index = 0; index < rows.length; index++) {
+    let value: string;
+    const isLast = index + 1 === rows.length;
+
+    if (isLast) {
       value = Array.from("🟩".repeat(5)).join("");
       result += value;
     } else {
@@ -55,14 +51,16 @@ const html = () => `<!DOCTYPE html>
 		const btn = document.querySelector('button');
 		const resultPara = document.querySelector('.result');
 		
-		// Share must be triggered by "user activation"
 		btn.addEventListener('click', async () => {
-			
+			const shareText = document.getElementById('score').textContent;
 			try {
-			await navigator.share({
-				text: document.getElementById('score').textContent,
-			});
-			
+				if (navigator.canShare) {
+					await navigator.share({
+						text: shareText,
+					});
+				} else {
+					await navigator.clipboard.writeText(shareText)
+				}
 			} catch (err) {
 				console.error(err)
 			}
