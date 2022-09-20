@@ -10,6 +10,8 @@ const squares: [green: string, white: string, yellow: string] = [
 // 	  console.log('no')
 //   });
 
+const letterCount = 5;
+
 function getRandomIntInclusive(min: number, max: number) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -25,11 +27,11 @@ function createScore() {
     let value;
 
     if (index + 1 === rows.length) {
-      value = Array.from("🟩".repeat(6)).join("");
+      value = Array.from("🟩".repeat(5)).join("");
       result += value;
     } else {
       value = Array.from(
-        { length: 6 },
+        { length: 5 },
         () => squares[getRandomIntInclusive(0, 2)]
       ).join("");
       result += value + "\n";
