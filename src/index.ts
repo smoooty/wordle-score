@@ -57,7 +57,6 @@ const html = () => `<!DOCTYPE html>
 		
 		// Share must be triggered by "user activation"
 		btn.addEventListener('click', async () => {
-			console.log('click');
 			
 			try {
 			await navigator.share({
@@ -65,7 +64,7 @@ const html = () => `<!DOCTYPE html>
 			});
 			
 			} catch (err) {
-				alert('error')
+				console.error(err)
 			}
 		});
   </script>
